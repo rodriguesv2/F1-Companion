@@ -23,9 +23,7 @@ fun MonthAtom(
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(
-                size = 20.dp
-            ))
+            .clip(RoundedCornerShape(size = 20.dp))
             .background(color = white.copy(alpha = 0.1f)),
     ) {
         Text(
