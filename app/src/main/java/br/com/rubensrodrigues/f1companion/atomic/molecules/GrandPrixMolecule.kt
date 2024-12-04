@@ -1,4 +1,4 @@
-package br.com.rubensrodrigues.f1companion.atomic.organisms
+package br.com.rubensrodrigues.f1companion.atomic.molecules
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,15 +28,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.rubensrodrigues.f1companion.R
-import br.com.rubensrodrigues.f1companion.atomic.molecules.DateMolecule
+import br.com.rubensrodrigues.f1companion.atomic.atoms.DateAtom
 import br.com.rubensrodrigues.f1companion.ui.theme.Dimen
 import br.com.rubensrodrigues.f1companion.ui.theme.F1CompanionTheme
 import br.com.rubensrodrigues.f1companion.ui.theme.alphaGrey
 import br.com.rubensrodrigues.f1companion.utils.extensions.Padding
 
 @Composable
-fun GrandPrixOrganism(
-    days: String,
+fun GrandPrixMolecule(
+    days: Pair<String, String>,
     month: String,
     round: String,
     location: String,
@@ -59,7 +59,7 @@ fun GrandPrixOrganism(
             modifier = Modifier.padding(Dimen.defaultMargin),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            DateMolecule(
+            DateAtom(
                 days = days,
                 month = month,
             )
@@ -89,8 +89,8 @@ fun GrandPrixOrganism(
 @Composable
 private fun Preview() {
     F1CompanionTheme {
-        GrandPrixOrganism(
-            days = "21 - 23",
+        GrandPrixMolecule(
+            days = "21" to "23",
             month = "Jul",
             round = "1",
             location = "Brazil",
