@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "F1 Companion"
 include(":app")
- 
+include(":domain")

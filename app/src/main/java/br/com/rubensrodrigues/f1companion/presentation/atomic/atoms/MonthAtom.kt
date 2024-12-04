@@ -1,4 +1,4 @@
-package br.com.rubensrodrigues.f1companion.atomic.atoms
+package br.com.rubensrodrigues.f1companion.presentation.atomic.atoms
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

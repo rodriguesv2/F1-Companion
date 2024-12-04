@@ -1,4 +1,4 @@
-package br.com.rubensrodrigues.f1companion.atomic.molecules
+package br.com.rubensrodrigues.f1companion.presentation.atomic.molecules
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.rubensrodrigues.f1companion.R
-import br.com.rubensrodrigues.f1companion.atomic.atoms.DateAtom
+import br.com.rubensrodrigues.f1companion.presentation.atomic.atoms.DateAtom
 import br.com.rubensrodrigues.f1companion.ui.theme.Dimen
 import br.com.rubensrodrigues.f1companion.ui.theme.F1CompanionTheme
 import br.com.rubensrodrigues.f1companion.ui.theme.alphaGrey
