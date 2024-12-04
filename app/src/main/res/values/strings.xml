@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">F1 Companion</string>
+
+    <string name="grand_prix_round">Round %s</string>
 </resources>
