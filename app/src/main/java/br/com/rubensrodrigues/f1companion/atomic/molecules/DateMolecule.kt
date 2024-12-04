@@ -1,6 +1,5 @@
 package br.com.rubensrodrigues.f1companion.atomic.molecules
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,9 +15,9 @@ import br.com.rubensrodrigues.f1companion.utils.extensions.Padding
 
 @Composable
 fun DateMolecule(
-    modifier: Modifier = Modifier,
     days: String,
     month: String,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
