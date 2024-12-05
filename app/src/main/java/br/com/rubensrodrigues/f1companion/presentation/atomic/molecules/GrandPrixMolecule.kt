@@ -2,11 +2,13 @@ package br.com.rubensrodrigues.f1companion.presentation.atomic.molecules
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -43,17 +45,12 @@ fun GrandPrixMolecule(
     name: String,
     modifier: Modifier = Modifier
 ) {
-    val localDensity = LocalDensity.current
-    var surfaceHeight by remember { mutableStateOf(0.dp) }
-
     Surface(
         modifier = modifier
             .fillMaxWidth()
+            .height(110.dp)
             .background(color = MaterialTheme.colorScheme.background)
             .clip(RoundedCornerShape(18.dp))
-            .onGloballyPositioned { coordinates ->
-                surfaceHeight = with(localDensity) { coordinates.size.height.toDp() }
-            }
     ) {
         Row(
             modifier = Modifier.padding(Dimen.defaultMargin),
@@ -64,10 +61,9 @@ fun GrandPrixMolecule(
                 month = month,
             )
             Padding()
-            VerticalDivider(modifier = Modifier.height(surfaceHeight))
+            VerticalDivider()
             Padding()
             Column(
-                modifier = Modifier.height(surfaceHeight),
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 Text(stringResource(R.string.grand_prix_round, round))

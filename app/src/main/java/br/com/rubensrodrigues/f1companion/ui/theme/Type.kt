@@ -44,17 +44,3 @@ val Typography = Typography(
         letterSpacing = 0.sp
     )
 )
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    F1CompanionTheme {
-        Scaffold {
-            Text(
-                modifier = Modifier.padding(it),
-                text = "Racing",
-                style = Typography.titleLarge,
-            )
-        }
-    }
-}

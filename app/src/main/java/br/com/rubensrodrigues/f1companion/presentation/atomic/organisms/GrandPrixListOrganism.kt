@@ -1,10 +1,14 @@
 package br.com.rubensrodrigues.f1companion.presentation.atomic.organisms
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.rubensrodrigues.domain.entities.GrandPrix
 import br.com.rubensrodrigues.f1companion.presentation.atomic.molecules.GrandPrixMolecule
@@ -17,8 +21,8 @@ fun GrandPrixListOrganism(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = Dimen.defaultMargin)
+        modifier = modifier.background(MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.spacedBy(Dimen.defaultMargin)
     ) {
         items(items) {
             GrandPrixMolecule(
