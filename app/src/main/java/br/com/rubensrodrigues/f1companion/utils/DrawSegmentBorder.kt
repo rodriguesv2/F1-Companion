@@ -8,21 +8,21 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 
-enum class BorderOrder {
-    Start, Center, End
+enum class BorderType {
+    Start, End, TopStart, TopEnd, BottomStart, BottomEnd, Bottom, Top
 }
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.drawSegmentedBorder(
     strokeWidth: Dp,
     color: Color,
-    cornerPercent: Int,
-    borderOrder: BorderOrder,
-    drawDivider: Boolean = false
+    borderTypes: Set<BorderType>,
+    cornerPercent: Int = 0,
 ) = composed(
     factory = {
         val density = LocalDensity.current
@@ -33,127 +33,246 @@ fun Modifier.drawSegmentedBorder(
             val height = size.height
             val cornerRadius = height * cornerPercent / 100
 
-            when (borderOrder) {
-                BorderOrder.Start -> {
-
-                    drawLine(
+            borderTypes.forEach { border ->
+                when (border) {
+                    BorderType.Start -> startVerticalLine(
                         color = color,
-                        start = Offset(x = width, y = 0f),
-                        end = Offset(x = cornerRadius, y = 0f),
-                        strokeWidth = strokeWidthPx
+                        cornerRadius = cornerRadius,
+                        height = height,
+                        strokeWidthPx = strokeWidthPx,
+                        borderTypes = borderTypes,
                     )
 
-                    // Top left arc
-                    drawArc(
+                    BorderType.End -> endVerticalLine(
+                        width = width,
                         color = color,
-                        startAngle = 180f,
-                        sweepAngle = 90f,
-                        useCenter = false,
-                        topLeft = Offset.Zero,
-                        size = Size(cornerRadius * 2, cornerRadius * 2),
-                        style = Stroke(width = strokeWidthPx)
-                    )
-                    drawLine(
-                        color = color,
-                        start = Offset(x = 0f, y = cornerRadius),
-                        end = Offset(x = 0f, y = height - cornerRadius),
-                        strokeWidth = strokeWidthPx
-                    )
-                    // Bottom left arc
-                    drawArc(
-                        color = color,
-                        startAngle = 90f,
-                        sweepAngle = 90f,
-                        useCenter = false,
-                        topLeft = Offset(x = 0f, y = height - 2 * cornerRadius),
-                        size = Size(cornerRadius * 2, cornerRadius * 2),
-                        style = Stroke(width = strokeWidthPx)
-                    )
-                    drawLine(
-                        color = color,
-                        start = Offset(x = cornerRadius, y = height),
-                        end = Offset(x = width, y = height),
-                        strokeWidth = strokeWidthPx
-                    )
-                }
-                BorderOrder.Center -> {
-                    drawLine(
-                        color = color,
-                        start = Offset(x = 0f, y = 0f),
-                        end = Offset(x = width, y = 0f),
-                        strokeWidth = strokeWidthPx
-                    )
-                    drawLine(
-                        color = color,
-                        start = Offset(x = 0f, y = height),
-                        end = Offset(x = width, y = height),
-                        strokeWidth = strokeWidthPx
+                        cornerRadius = cornerRadius,
+                        height = height,
+                        strokeWidthPx = strokeWidthPx,
+                        borderTypes = borderTypes,
                     )
 
-                    if (drawDivider) {
-                        drawLine(
-                            color = color,
-                            start = Offset(x = 0f, y = 0f),
-                            end = Offset(x = 0f, y = height),
-                            strokeWidth = strokeWidthPx
-                        )
-                    }
-                }
-                else -> {
-
-                    if (drawDivider) {
-                        drawLine(
-                            color = color,
-                            start = Offset(x = 0f, y = 0f),
-                            end = Offset(x = 0f, y = height),
-                            strokeWidth = strokeWidthPx
-                        )
-                    }
-
-                    drawLine(
+                    BorderType.TopStart -> topStartCurve(
                         color = color,
-                        start = Offset(x = 0f, y = 0f),
-                        end = Offset(x = width - cornerRadius, y = 0f),
-                        strokeWidth = strokeWidthPx
+                        cornerRadius = cornerRadius,
+                        strokeWidthPx = strokeWidthPx
                     )
 
-                    // Top right arc
-                    drawArc(
+                    BorderType.TopEnd -> topEndCurve(
                         color = color,
-                        startAngle = 270f,
-                        sweepAngle = 90f,
-                        useCenter = false,
-                        topLeft = Offset(x = width - cornerRadius * 2, y = 0f),
-                        size = Size(cornerRadius * 2, cornerRadius * 2),
-                        style = Stroke(width = strokeWidthPx)
+                        width = width,
+                        cornerRadius = cornerRadius,
+                        strokeWidthPx = strokeWidthPx
                     )
-                    drawLine(
+
+                    BorderType.BottomStart -> bottomStartCurve(
                         color = color,
-                        start = Offset(x = width, y = cornerRadius),
-                        end = Offset(x = width, y = height - cornerRadius),
-                        strokeWidth = strokeWidthPx
+                        height = height,
+                        cornerRadius = cornerRadius,
+                        strokeWidthPx = strokeWidthPx
                     )
-                    // Bottom right arc
-                    drawArc(
+
+                    BorderType.BottomEnd -> bottomEndCurve(
                         color = color,
-                        startAngle = 0f,
-                        sweepAngle = 90f,
-                        useCenter = false,
-                        topLeft = Offset(
-                            x = width - 2 * cornerRadius,
-                            y = height - 2 * cornerRadius
-                        ),
-                        size = Size(cornerRadius * 2, cornerRadius * 2),
-                        style = Stroke(width = strokeWidthPx)
+                        width = width,
+                        cornerRadius = cornerRadius,
+                        height = height,
+                        strokeWidthPx = strokeWidthPx
                     )
-                    drawLine(
+
+                    BorderType.Bottom -> bottomLine(
                         color = color,
-                        start = Offset(x = 0f, y = height),
-                        end = Offset(x = width -cornerRadius, y = height),
-                        strokeWidth = strokeWidthPx
+                        cornerRadius = 0f,
+                        height = height,
+                        width = width,
+                        strokeWidthPx = strokeWidthPx,
+                        borderTypes = borderTypes,
+                    )
+
+                    BorderType.Top -> topLine(
+                        color = color,
+                        width = width,
+                        cornerRadius = cornerRadius,
+                        strokeWidthPx = strokeWidthPx,
+                        borderTypes = borderTypes,
                     )
                 }
             }
         }
     }
 )
+
+private fun DrawScope.bottomEndCurve(
+    color: Color,
+    width: Float,
+    cornerRadius: Float,
+    height: Float,
+    strokeWidthPx: Float
+) {
+    drawArc(
+        color = color,
+        startAngle = 0f,
+        sweepAngle = 90f,
+        useCenter = false,
+        topLeft = Offset(
+            x = width - 2 * cornerRadius,
+            y = height - 2 * cornerRadius
+        ),
+        size = Size(
+            cornerRadius * 2,
+            cornerRadius * 2
+        ),
+        style = Stroke(width = strokeWidthPx)
+    )
+}
+
+private fun DrawScope.endVerticalLine(
+    width: Float,
+    color: Color,
+    cornerRadius: Float,
+    height: Float,
+    strokeWidthPx: Float,
+    borderTypes: Set<BorderType>
+) {
+    drawLine(
+        color = color,
+        start = Offset(
+            x = width,
+            y = if (borderTypes.contains(BorderType.TopEnd)) cornerRadius else 0f
+        ),
+        end = Offset(
+            x = width,
+            y = height - (if (borderTypes.contains(BorderType.BottomEnd)) cornerRadius else 0f)
+        ),
+        strokeWidth = strokeWidthPx
+    )
+}
+
+private fun DrawScope.startVerticalLine(
+    color: Color,
+    cornerRadius: Float,
+    height: Float,
+    strokeWidthPx: Float,
+    borderTypes: Set<BorderType>
+) {
+    drawLine(
+        color = color,
+        start = Offset(
+            x = 0f,
+            y = if (borderTypes.contains(BorderType.TopStart)) cornerRadius else 0f
+        ),
+        end = Offset(
+            x = 0f,
+            y = height - (if (borderTypes.contains(BorderType.BottomStart)) cornerRadius else 0f)
+        ),
+        strokeWidth = strokeWidthPx
+    )
+}
+
+private fun DrawScope.topEndCurve(
+    color: Color,
+    width: Float,
+    cornerRadius: Float,
+    strokeWidthPx: Float
+) {
+    drawArc(
+        color = color,
+        startAngle = 270f,
+        sweepAngle = 90f,
+        useCenter = false,
+        topLeft = Offset(
+            x = width - cornerRadius * 2,
+            y = 0f
+        ),
+        size = Size(
+            cornerRadius * 2,
+            cornerRadius * 2
+        ),
+        style = Stroke(width = strokeWidthPx)
+    )
+}
+
+private fun DrawScope.bottomLine(
+    color: Color,
+    cornerRadius: Float,
+    height: Float,
+    width: Float,
+    strokeWidthPx: Float,
+    borderTypes: Set<BorderType>
+) {
+    drawLine(
+        color = color,
+        start = Offset(
+            x = if (borderTypes.contains(BorderType.BottomStart)) cornerRadius else 0f,
+            y = height
+        ),
+        end = Offset(
+            x = width - (if (borderTypes.contains(BorderType.BottomEnd)) cornerRadius else 0f),
+            y = height
+        ),
+        strokeWidth = strokeWidthPx
+    )
+}
+
+private fun DrawScope.bottomStartCurve(
+    color: Color,
+    height: Float,
+    cornerRadius: Float,
+    strokeWidthPx: Float
+) {
+    drawArc(
+        color = color,
+        startAngle = 90f,
+        sweepAngle = 90f,
+        useCenter = false,
+        topLeft = Offset(
+            x = 0f,
+            y = height - 2 * cornerRadius
+        ),
+        size = Size(
+            cornerRadius * 2,
+            cornerRadius * 2
+        ),
+        style = Stroke(width = strokeWidthPx)
+    )
+}
+
+private fun DrawScope.topStartCurve(
+    color: Color,
+    cornerRadius: Float,
+    strokeWidthPx: Float
+) {
+    drawArc(
+        color = color,
+        startAngle = 180f,
+        sweepAngle = 90f,
+        useCenter = false,
+        topLeft = Offset.Zero,
+        size = Size(
+            cornerRadius * 2,
+            cornerRadius * 2
+        ),
+        style = Stroke(width = strokeWidthPx)
+    )
+}
+
+private fun DrawScope.topLine(
+    color: Color,
+    width: Float,
+    cornerRadius: Float,
+    strokeWidthPx: Float,
+    borderTypes: Set<BorderType>
+) {
+    drawLine(
+        color = color,
+        start = Offset(
+            x = width - (if (borderTypes.contains(BorderType.TopEnd)) cornerRadius else 0f),
+            y = 0f
+        ),
+        end = Offset(
+            x = if (borderTypes.contains(BorderType.TopStart)) cornerRadius else 0f,
+            y = 0f
+        ),
+        strokeWidth = strokeWidthPx
+    )
+}

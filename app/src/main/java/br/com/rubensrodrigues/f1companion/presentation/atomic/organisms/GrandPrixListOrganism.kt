@@ -22,7 +22,8 @@ fun GrandPrixListOrganism(
 ) {
     LazyColumn(
         modifier = modifier.background(MaterialTheme.colorScheme.background),
-        verticalArrangement = Arrangement.spacedBy(Dimen.defaultMargin)
+        verticalArrangement = Arrangement.spacedBy(Dimen.defaultMargin),
+        contentPadding = PaddingValues(Dimen.defaultMargin),
     ) {
         items(items) {
             GrandPrixMolecule(
