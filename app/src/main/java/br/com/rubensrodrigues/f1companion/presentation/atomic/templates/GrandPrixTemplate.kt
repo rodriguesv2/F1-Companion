@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.rubensrodrigues.domain.entities.GrandPrix
+import br.com.rubensrodrigues.f1companion.R
 import br.com.rubensrodrigues.f1companion.presentation.atomic.atoms.PageTitleAtom
+import br.com.rubensrodrigues.f1companion.presentation.atomic.atoms.TitleAtom
 import br.com.rubensrodrigues.f1companion.presentation.atomic.organisms.GrandPrixListOrganism
 import br.com.rubensrodrigues.f1companion.ui.theme.Dimen
 import br.com.rubensrodrigues.f1companion.ui.theme.F1CompanionTheme
@@ -20,7 +23,11 @@ fun GrandPrixTemplate(
     gPs: List<GrandPrix>,
     modifier: Modifier = Modifier
 ) {
-    Scaffold {
+    Scaffold(
+        topBar = {
+            TitleAtom(stringResource( R.string.racing_title))
+        }
+    ) {
         Column(
             modifier = modifier
                 .padding(it)
@@ -28,7 +35,7 @@ fun GrandPrixTemplate(
         ) {
             PageTitleAtom(
                 modifier = Modifier.fillMaxWidth().padding(Dimen.defaultMargin),
-                title = "Upcoming"
+                title = stringResource(R.string.upcoming_gp_pager_title)
             )
             GrandPrixListOrganism(gPs)
         }
