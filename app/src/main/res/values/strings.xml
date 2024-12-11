@@ -4,5 +4,6 @@
     <string name="grand_prix_round">Round %s</string>
     <string name="grand_prix_days_range">%s - %s</string>
     <string name="racing_title">Racing</string>
+    <string name="standings_title">Standings</string>
     <string name="upcoming_gp_pager_title">Upcoming</string>
 </resources>
