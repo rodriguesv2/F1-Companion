@@ -11,12 +11,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
+import br.com.rubensrodrigues.presentation.ui.pages.grandprix.GrandPrixPage
+import br.com.rubensrodrigues.presentation.ui.pages.grandprix.GrandPrixViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BottomNavigationHolder() {
@@ -55,19 +56,12 @@ fun BottomNavigationHolder() {
             startDestination = Destination.Racings,
         ) {
             composable<Destination.Racings> {
-                Text(text = "Racing")
+                val viewModel = koinViewModel<GrandPrixViewModel>()
+                GrandPrixPage(viewModel = viewModel)
             }
             composable<Destination.Standings> {
                 Text(text = "Standings")
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun Preview() {
-    F1CompanionTheme {
-        BottomNavigationHolder()
     }
 }

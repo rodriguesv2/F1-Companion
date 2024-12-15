@@ -37,11 +37,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.koin.bom))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -51,7 +54,9 @@ dependencies {
     implementation(libs.navigation)
     implementation(libs.kotlinx.serialization)
 
-    implementation(project(":domain"))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

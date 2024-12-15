@@ -14,13 +14,15 @@ import br.com.rubensrodrigues.presentation.R
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.PageTitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.GrandPrixListOrganism
+import br.com.rubensrodrigues.presentation.ui.atomic.organisms.LoadingOrganism
 import br.com.rubensrodrigues.presentation.ui.theme.Dimen
 import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
 
 @Composable
 fun GrandPrixTemplate(
-    gPs: List<GrandPrix>,
-    modifier: Modifier = Modifier
+    grandPrixList: List<GrandPrix>,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false
 ) {
     Scaffold(
         topBar = {
@@ -36,7 +38,11 @@ fun GrandPrixTemplate(
                 modifier = Modifier.fillMaxWidth().padding(Dimen.defaultMargin),
                 title = stringResource(R.string.upcoming_gp_pager_title)
             )
-            GrandPrixListOrganism(gPs)
+            if (isLoading) {
+                LoadingOrganism()
+                return@Scaffold
+            }
+            GrandPrixListOrganism(grandPrixList)
         }
     }
 }
@@ -55,6 +61,17 @@ private fun Preview() {
                     name = "GP São Paulo Lenovo"
                 )
             }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewLoading() {
+    F1CompanionTheme {
+        GrandPrixTemplate(
+            listOf(),
+            isLoading = true,
         )
     }
 }
