@@ -7,5 +7,6 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val dataModule = module {
+    includes(networkingModule)
     singleOf(::Formula1RepositoryMock) { bind<Formula1Repository>() }
 }
