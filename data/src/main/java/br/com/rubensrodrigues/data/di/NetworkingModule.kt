@@ -4,10 +4,15 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.request.header
+import io.ktor.client.plugins.logging.DEFAULT
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.accept
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val networkingModule = module {
@@ -17,15 +22,19 @@ val networkingModule = module {
                 json(Json {
                     prettyPrint = true
                     isLenient = true
+                    ignoreUnknownKeys = true
+                    explicitNulls = false
                 })
             }
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.HEADERS
+            }
             defaultRequest {
-                header(API_KEY, get(named(API_KEY_VALUE)))
-                url("https://v1.formula-1.api-sports.io/")
+                contentType(ContentType.Application.Json)
+                accept(ContentType.Application.Json)
+                url("http://api.jolpi.ca/ergast/f1/")
             }
         }
     }
 }
-
-const val API_KEY = "x-apisports-key"
-const val API_KEY_VALUE = "api_key_value"

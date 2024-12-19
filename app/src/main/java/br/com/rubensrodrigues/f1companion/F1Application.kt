@@ -3,7 +3,6 @@ package br.com.rubensrodrigues.f1companion
 import android.app.Application
 import br.com.rubensrodrigues.data.di.dataModule
 import br.com.rubensrodrigues.domain.di.domainModule
-import br.com.rubensrodrigues.f1companion.di.appModule
 import br.com.rubensrodrigues.presentation.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +16,6 @@ class F1Application : Application() {
             androidLogger()
             androidContext(this@F1Application)
             modules(
-                appModule,
                 dataModule,
                 domainModule,
                 presentationModule,
