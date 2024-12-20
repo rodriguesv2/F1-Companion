@@ -30,7 +30,7 @@ import br.com.rubensrodrigues.presentation.utils.extensions.Padding
 
 @Composable
 fun GrandPrixMolecule(
-    days: Pair<String, String>,
+    day: String,
     month: String,
     round: String,
     location: String,
@@ -49,7 +49,7 @@ fun GrandPrixMolecule(
             verticalAlignment = Alignment.CenterVertically
         ) {
             DateAtom(
-                days = days,
+                day = day,
                 month = month,
             )
             Padding()
@@ -78,7 +78,7 @@ fun GrandPrixMolecule(
 private fun Preview() {
     F1CompanionTheme {
         GrandPrixMolecule(
-            days = "21" to "23",
+            day = "21",
             month = "Jul",
             round = "1",
             location = "Brazil",

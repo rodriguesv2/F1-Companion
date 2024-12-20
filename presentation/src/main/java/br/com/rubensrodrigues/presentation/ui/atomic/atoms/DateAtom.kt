@@ -16,7 +16,7 @@ import br.com.rubensrodrigues.presentation.utils.extensions.Padding
 
 @Composable
 fun DateAtom(
-    days: Pair<String, String>,
+    day: String,
     month: String,
     modifier: Modifier = Modifier,
 ) {
@@ -25,11 +25,7 @@ fun DateAtom(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(
-                id = R.string.grand_prix_days_range,
-                days.first,
-                days.second,
-            ),
+            text = day,
             style = Typography.titleSmall.copy(MaterialTheme.colorScheme.onBackground),
         )
         Padding(Dimen.extraSmallMargin)
@@ -42,7 +38,7 @@ fun DateAtom(
 private fun Preview() {
     F1CompanionTheme {
         DateAtom(
-            days = "21" to "23",
+            day = "21",
             month = "Jul"
         )
     }

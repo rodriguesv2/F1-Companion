@@ -26,7 +26,7 @@ fun GrandPrixListOrganism(
     ) {
         items(items) {
             GrandPrixMolecule(
-                days = it.days,
+                day = it.day,
                 month = it.month,
                 round = it.round,
                 location = it.location,
@@ -43,7 +43,7 @@ private fun Preview() {
         GrandPrixListOrganism(
             items = List(10) {
                 GrandPrix(
-                    days = "21" to "23",
+                    day = "21",
                     month = "Jul",
                     round = "1",
                     location = "Brazil",

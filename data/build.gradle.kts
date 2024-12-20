@@ -19,6 +19,7 @@ kotlin {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":utils"))
 
     implementation(platform(libs.koin.bom))
 

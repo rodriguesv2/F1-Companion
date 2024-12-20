@@ -8,7 +8,6 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.accept
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -32,7 +31,6 @@ val networkingModule = module {
             }
             defaultRequest {
                 contentType(ContentType.Application.Json)
-                accept(ContentType.Application.Json)
                 url("http://api.jolpi.ca/ergast/f1/")
             }
         }

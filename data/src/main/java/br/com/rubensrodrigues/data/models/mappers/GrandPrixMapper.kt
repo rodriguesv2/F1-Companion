@@ -2,6 +2,8 @@ package br.com.rubensrodrigues.data.models.mappers
 
 import br.com.rubensrodrigues.data.models.RacingsModel
 import br.com.rubensrodrigues.domain.entities.GrandPrix
+import br.com.rubensrodrigues.utils.getDay
+import br.com.rubensrodrigues.utils.getMonth
 
 fun RacingsModel.toGrandPrixList() = this
     .data
@@ -9,8 +11,8 @@ fun RacingsModel.toGrandPrixList() = this
     .races
     .map { race ->
         GrandPrix(
-            days = race.date.split("-")[2] to race.date.split("-")[2], //TODO arrumar isso
-            month = race.date.split("-")[1], //TODO arrumar isso
+            day = race.date.getDay(),
+            month = race.date.getMonth(),
             round = race.round,
             location = race.circuit.location.country,
             name = race.raceName

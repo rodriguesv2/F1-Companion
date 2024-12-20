@@ -10,7 +10,7 @@ class Formula1RepositoryMock: Formula1Repository {
 
         return List(20) {
             GrandPrix(
-                days = "01" to "03",
+                day = "01",
                 month = "November",
                 round = "1",
                 location = "São Paulo",

@@ -54,7 +54,7 @@ private fun Preview() {
         GrandPrixTemplate(
             List(20) {
                 GrandPrix(
-                    days = "21" to "23",
+                    day = "21",
                     month = "Nov",
                     round = "20",
                     location = "Brazil",
