@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.rubensrodrigues.domain.entities.GrandPrix
 import br.com.rubensrodrigues.presentation.R
-import br.com.rubensrodrigues.presentation.ui.atomic.atoms.PageTitleAtom
+import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TabTitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.GrandPrixListOrganism
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.LoadingOrganism
@@ -34,7 +34,7 @@ fun GrandPrixTemplate(
                 .padding(it)
                 .fillMaxSize()
         ) {
-            PageTitleAtom(
+            TabTitleAtom(
                 modifier = Modifier.fillMaxWidth().padding(Dimen.defaultMargin),
                 title = stringResource(R.string.upcoming_gp_pager_title)
             )

@@ -6,4 +6,6 @@
     <string name="standings_title">Standings</string>
     <string name="upcoming_gp_pager_title">Upcoming</string>
     <string name="points">%s PTS</string>
+    <string name="drivers_title">Drivers</string>
+    <string name="constructors_title">Constructors</string>
 </resources>
