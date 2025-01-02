@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -21,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.rubensrodrigues.presentation.R
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TabTitleAtom
+import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TitleAtom
+import br.com.rubensrodrigues.presentation.ui.theme.Dimen
 import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
 import br.com.rubensrodrigues.presentation.utils.extensions.Padding
 import kotlinx.coroutines.launch
@@ -30,39 +34,43 @@ fun StandingTemplate() {
     val pagerState = rememberPagerState { 2 }
     val scope = rememberCoroutineScope()
 
-    Column {
-        TabRow(
-            modifier = Modifier.fillMaxWidth(),
-            containerColor = Color.Transparent,
-            selectedTabIndex = pagerState.currentPage,
-            indicator = {},
-            divider = {}
-        ) {
-            Page.entries.forEachIndexed { index, page ->
-                TabTitleAtom(
-                    title = stringResource(page.title),
-                    isSelected = pagerState.currentPage == index,
-                    onClick = {
-                        scope.launch {
-                            pagerState.animateScrollToPage(index)
-                        }
-                    }
-                )
-            }
+    Scaffold(
+        topBar = {
+            TitleAtom(stringResource(R.string.standings_title))
         }
-        Padding()
-        HorizontalPager(
-            state = pagerState
-        ) { page ->
-            val color = when (page) {
-                0 -> Color.Blue
-                else -> Color.Red
+    ) {
+        Column(
+            Modifier
+                .padding(it)
+                .padding(horizontal = Dimen.defaultMargin),
+        ) {
+            Padding()
+            TabRow(
+                modifier = Modifier.fillMaxWidth(),
+                containerColor = Color.Transparent,
+                selectedTabIndex = pagerState.currentPage,
+                indicator = {},
+                divider = {}
+            ) {
+                Page.entries.forEachIndexed { index, page ->
+                    TabTitleAtom(
+                        title = stringResource(page.title),
+                        isSelected = pagerState.currentPage == index,
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
+                        }
+                    )
+                }
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = color)
-            )
+            Padding()
+            HorizontalPager(
+                modifier = Modifier.fillMaxSize(),
+                state = pagerState,
+            ) { page ->
+
+            }
         }
     }
 }

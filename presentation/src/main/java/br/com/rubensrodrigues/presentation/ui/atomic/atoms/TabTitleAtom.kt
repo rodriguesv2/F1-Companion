@@ -46,7 +46,7 @@ fun TabTitleAtom(
         text = title,
         color = if (isSelected) white else white.copy(alpha = 0.45f),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.titleMedium
+        style = MaterialTheme.typography.titleSmall
     )
 }
 
