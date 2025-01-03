@@ -14,7 +14,7 @@ class Formula1DatasourceImpl(
 ): Formula1Datasource {
     override suspend fun getRaces(year: Int) : RacingsModel {
         return client
-            .get("http://ergast.com/api/f1/$year/races.json")
+            .get("$year/races.json")
             .body<RacingsModel>()
     }
 }
