@@ -9,15 +9,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import br.com.rubensrodrigues.domain.entities.Driver
+import br.com.rubensrodrigues.domain.entities.Constructor
 import br.com.rubensrodrigues.presentation.ui.atomic.molecules.ConstructorStandingItemMolecule
-import br.com.rubensrodrigues.presentation.ui.atomic.molecules.DriverStandingItemMolecule
 import br.com.rubensrodrigues.presentation.ui.theme.Dimen
 import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
 
 @Composable
-fun DriverStandingOrganism(
-    drivers: List<Driver>,
+fun ConstructorStandingOrganism(
+    constructors: List<Constructor>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -25,10 +24,9 @@ fun DriverStandingOrganism(
         verticalArrangement = Arrangement.spacedBy(Dimen.defaultMargin),
         contentPadding = PaddingValues(Dimen.defaultMargin),
     ) {
-        items(drivers) { driver ->
-            DriverStandingItemMolecule(
+        items(constructors) { driver ->
+            ConstructorStandingItemMolecule(
                 position = driver.position,
-                driver = driver.driver,
                 points = driver.points,
                 team = driver.team
             )
@@ -40,11 +38,10 @@ fun DriverStandingOrganism(
 @Composable
 private fun Preview() {
     F1CompanionTheme {
-        DriverStandingOrganism(
-            drivers = List(10) {
-                Driver(
+        ConstructorStandingOrganism(
+            constructors = List(10) {
+                Constructor(
                     position = "1",
-                    driver = "Carlos Sainz",
                     points = "100",
                     team = "Ferrari",
                 )

@@ -1,8 +1,7 @@
 package br.com.rubensrodrigues.domain.entities
 
-data class Driver(
+data class Constructor(
     val position: String,
-    val driver: String,
     val points: String,
     val team: String
 )
