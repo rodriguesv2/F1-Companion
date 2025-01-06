@@ -17,6 +17,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.rubensrodrigues.presentation.ui.pages.grandprix.GrandPrixPage
 import br.com.rubensrodrigues.presentation.ui.pages.grandprix.GrandPrixViewModel
+import br.com.rubensrodrigues.presentation.ui.pages.standings.StandingsPage
+import br.com.rubensrodrigues.presentation.ui.pages.standings.StandingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -60,7 +62,8 @@ fun BottomNavigationHolder() {
                 GrandPrixPage(viewModel = viewModel)
             }
             composable<Destination.Standings> {
-                Text(text = "Standings")
+                val viewModel = koinViewModel<StandingsViewModel>()
+                StandingsPage(viewModel = viewModel)
             }
         }
     }
