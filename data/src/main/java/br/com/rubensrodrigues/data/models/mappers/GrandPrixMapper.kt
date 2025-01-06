@@ -1,11 +1,11 @@
 package br.com.rubensrodrigues.data.models.mappers
 
-import br.com.rubensrodrigues.data.models.RacingsModel
+import br.com.rubensrodrigues.data.models.RacingsResponse
 import br.com.rubensrodrigues.domain.entities.GrandPrix
 import br.com.rubensrodrigues.utils.getDay
 import br.com.rubensrodrigues.utils.getMonth
 
-fun RacingsModel.toGrandPrixList() = this
+fun RacingsResponse.toGrandPrixList() = this
     .data
     .raceTable
     .races
