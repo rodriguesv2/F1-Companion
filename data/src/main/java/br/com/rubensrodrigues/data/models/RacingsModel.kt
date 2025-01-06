@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RacingsModel(
-    @SerialName("MRData") val data: MRDataModel
+    @SerialName("MRData") val data: RacingsMRDataModel
 )
 
 @Serializable
-data class MRDataModel(
+data class RacingsMRDataModel(
     val xmlns: String,
     val series: String,
     val url: String,
