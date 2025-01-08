@@ -15,16 +15,7 @@ class StandingsViewModel(
     private val _uiState = MutableStateFlow(StandingsUiState())
     val uiState: StateFlow<StandingsUiState> = _uiState.asStateFlow()
 
-    init {
-        fetchData()
-    }
-
-    fun onRetryClick() {
-        _uiState.update { it.copy(shouldShowError = false) }
-        fetchData()
-    }
-
-    private fun fetchData() {
+    fun fetchData() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
@@ -43,5 +34,10 @@ class StandingsViewModel(
 
             }
         }
+    }
+
+    fun onRetryClick() {
+        _uiState.update { it.copy(shouldShowError = false) }
+        fetchData()
     }
 }
