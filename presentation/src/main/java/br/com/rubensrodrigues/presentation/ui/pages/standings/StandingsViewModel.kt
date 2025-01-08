@@ -28,14 +28,19 @@ class StandingsViewModel(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            getStandingsUseCase(2024).apply {
-                _uiState.update {
-                    it.copy(
-                        drivers = first,
-                        constructors = second,
-                        isLoading = false
-                    )
+            try {
+                getStandingsUseCase(2024).apply {
+                    _uiState.update {
+                        it.copy(
+                            drivers = first,
+                            constructors = second,
+                            isLoading = false
+                        )
+                    }
                 }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(shouldShowError = true) }
+
             }
         }
     }

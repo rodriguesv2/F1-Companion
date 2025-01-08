@@ -28,13 +28,17 @@ class GrandPrixViewModel(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            getGrandPrixUseCase(2024).apply {
-                _uiState.update {
-                    it.copy(
-                        grandPrixList = this,
-                        isLoading = false
-                    )
+            try {
+                getGrandPrixUseCase(2024).apply {
+                    _uiState.update {
+                        it.copy(
+                            grandPrixList = this,
+                            isLoading = false
+                        )
+                    }
                 }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(shouldShowError = true) }
             }
         }
     }
