@@ -6,6 +6,8 @@ import br.com.rubensrodrigues.domain.entities.Constructor
 fun ConstructorsResponse.toConstructor() = this
     .data
     .standingsTable
+    .standingsLists
+    .first()
     .constructorStandings
     .map {
         Constructor(

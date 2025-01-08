@@ -7,4 +7,5 @@ data class StandingsUiState(
     val isLoading: Boolean = false,
     val drivers: List<Driver> = emptyList(),
     val constructors: List<Constructor> = emptyList(),
+    val shouldShowError: Boolean = false,
 )

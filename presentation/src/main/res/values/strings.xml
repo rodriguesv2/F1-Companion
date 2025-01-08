@@ -8,4 +8,6 @@
     <string name="points">%s PTS</string>
     <string name="drivers_title">Drivers</string>
     <string name="constructors_title">Constructors</string>
+    <string name="error_message">Something went wrong</string>
+    <string name="error_button_text">Retry</string>
 </resources>

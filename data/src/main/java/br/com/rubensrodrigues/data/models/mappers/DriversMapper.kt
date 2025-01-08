@@ -7,6 +7,8 @@ import br.com.rubensrodrigues.domain.entities.Driver
 fun DriversResponse.toDriversList() = this
     .data
     .standingsTable
+    .standingsLists
+    .first()
     .driverStandings
     .map {
         Driver(

@@ -22,15 +22,20 @@ import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TabTitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.ConstructorStandingOrganism
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.DriverStandingOrganism
+import br.com.rubensrodrigues.presentation.ui.atomic.organisms.ErrorOrganism
+import br.com.rubensrodrigues.presentation.ui.atomic.organisms.LoadingOrganism
 import br.com.rubensrodrigues.presentation.ui.theme.Dimen
 import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
 import br.com.rubensrodrigues.presentation.utils.extensions.Padding
 import kotlinx.coroutines.launch
 
 @Composable
-fun StandingTemplate(
+fun StandingsTemplate(
     drivers: List<Driver>,
     constructors: List<Constructor>,
+    isLoading: Boolean = false,
+    shouldShowError: Boolean = false,
+    onRetryClick: () -> Unit = {},
 ) {
     val pagerState = rememberPagerState { Page.entries.size }
     val scope = rememberCoroutineScope()
@@ -44,6 +49,14 @@ fun StandingTemplate(
             Modifier
                 .padding(it),
         ) {
+            if (shouldShowError) {
+                ErrorOrganism(onRetryClick)
+                return@Column
+            }
+            if (isLoading) {
+                LoadingOrganism()
+                return@Column
+            }
             Padding()
             TabRow(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Dimen.defaultMargin),
@@ -93,7 +106,7 @@ enum class Page(@StringRes val title: Int) {
 @Composable
 private fun Preview() {
     F1CompanionTheme {
-        StandingTemplate(
+        StandingsTemplate(
             drivers = List(10) {
                 Driver(
                     position = "1",

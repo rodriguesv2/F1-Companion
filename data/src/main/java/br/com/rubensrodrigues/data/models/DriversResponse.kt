@@ -21,6 +21,11 @@ data class DriversMRDataResponse(
 
 @Serializable
 data class DriversStandingsTableResponse(
+    @SerialName("StandingsLists") val standingsLists: List<DriversStandingsListResponse>
+)
+
+@Serializable
+data class DriversStandingsListResponse(
     @SerialName("DriverStandings") val driverStandings: List<DriverStandingResponse>
 )
 

@@ -12,5 +12,7 @@ fun GrandPrixPage(viewModel: GrandPrixViewModel) {
     GrandPrixTemplate(
         grandPrixList = uiState.grandPrixList,
         isLoading = uiState.isLoading,
+        shouldShowError = uiState.shouldShowError,
+        onRetryClick = viewModel::onRetryClick,
     )
 }

@@ -16,6 +16,15 @@ class StandingsViewModel(
     val uiState: StateFlow<StandingsUiState> = _uiState.asStateFlow()
 
     init {
+        fetchData()
+    }
+
+    fun onRetryClick() {
+        _uiState.update { it.copy(shouldShowError = false) }
+        fetchData()
+    }
+
+    private fun fetchData() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 

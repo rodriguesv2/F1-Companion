@@ -21,6 +21,11 @@ data class ConstructorsMRDataResponse(
 
 @Serializable
 data class ConstructorsStandingsTableResponse(
+    @SerialName("StandingsLists") val standingsLists: List<ConstructorsStandingsListResponse>
+)
+
+@Serializable
+data class ConstructorsStandingsListResponse(
     @SerialName("ConstructorStandings") val constructorStandings: List<ConstructorStandingResponse>
 )
 

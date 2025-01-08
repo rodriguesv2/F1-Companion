@@ -16,6 +16,15 @@ class GrandPrixViewModel(
     val uiState: StateFlow<GrandPrixUiState> = _uiState.asStateFlow()
 
     init {
+        fetchData()
+    }
+
+    fun onRetryClick() {
+        _uiState.update { it.copy(shouldShowError = false) }
+        fetchData()
+    }
+
+    private fun fetchData() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 

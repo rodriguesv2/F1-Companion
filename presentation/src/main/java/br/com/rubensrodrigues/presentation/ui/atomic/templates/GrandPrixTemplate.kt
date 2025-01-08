@@ -13,6 +13,7 @@ import br.com.rubensrodrigues.domain.entities.GrandPrix
 import br.com.rubensrodrigues.presentation.R
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TabTitleAtom
 import br.com.rubensrodrigues.presentation.ui.atomic.atoms.TitleAtom
+import br.com.rubensrodrigues.presentation.ui.atomic.organisms.ErrorOrganism
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.GrandPrixListOrganism
 import br.com.rubensrodrigues.presentation.ui.atomic.organisms.LoadingOrganism
 import br.com.rubensrodrigues.presentation.ui.theme.Dimen
@@ -22,7 +23,9 @@ import br.com.rubensrodrigues.presentation.ui.theme.F1CompanionTheme
 fun GrandPrixTemplate(
     grandPrixList: List<GrandPrix>,
     modifier: Modifier = Modifier,
-    isLoading: Boolean = false
+    isLoading: Boolean = false,
+    shouldShowError: Boolean = false,
+    onRetryClick: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -35,9 +38,15 @@ fun GrandPrixTemplate(
                 .fillMaxSize()
         ) {
             TabTitleAtom(
-                modifier = Modifier.fillMaxWidth().padding(Dimen.defaultMargin),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Dimen.defaultMargin),
                 title = stringResource(R.string.upcoming_gp_pager_title)
             )
+            if (shouldShowError) {
+                ErrorOrganism(onRetryClick)
+                return@Scaffold
+            }
             if (isLoading) {
                 LoadingOrganism()
                 return@Scaffold
@@ -72,6 +81,18 @@ private fun PreviewLoading() {
         GrandPrixTemplate(
             listOf(),
             isLoading = true,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewError() {
+    F1CompanionTheme {
+        GrandPrixTemplate(
+            listOf(),
+            shouldShowError = true,
+            onRetryClick = {}
         )
     }
 }
