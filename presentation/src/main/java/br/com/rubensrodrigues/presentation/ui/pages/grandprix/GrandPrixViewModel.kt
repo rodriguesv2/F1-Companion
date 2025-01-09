@@ -29,7 +29,12 @@ class GrandPrixViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _uiState.update { it.copy(shouldShowError = true) }
+                _uiState.update {
+                    it.copy(
+                        shouldShowError = true,
+                        isLoading = false
+                    )
+                }
             }
         }
     }
