@@ -120,7 +120,9 @@ class GrandPrixViewModelTest {
     fun `GIVEN a GrandPrixViewModel WHEN onRetryClick is called THEN error status should be false and fetchData should be called again`() =
         runTest {
             //Arrange
-            viewModel = GrandPrixViewModel(useCase)
+            val initialState = GrandPrixUiState(shouldShowError = true)
+
+            viewModel = GrandPrixViewModel(useCase, initialState)
             coEvery { useCase(2024) } coAnswers {
                 delay(50)
                 grandPrixList
@@ -138,10 +140,11 @@ class GrandPrixViewModelTest {
             //Assert
             Assert.assertEquals(
                 listOf(
-                    GrandPrixUiState(),
+                    initialState,
+                    GrandPrixUiState(shouldShowError = false),
                     GrandPrixUiState(isLoading = true),
                     GrandPrixUiState(
-                        shouldShowError = true,
+                        grandPrixList = grandPrixList,
                         isLoading = false,
                     )
                 ),

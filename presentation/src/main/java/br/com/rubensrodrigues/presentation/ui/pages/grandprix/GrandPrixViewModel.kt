@@ -11,8 +11,9 @@ import kotlinx.coroutines.launch
 
 class GrandPrixViewModel(
     private val getGrandPrixUseCase: GetGrandPrixUseCase,
+    initialState: GrandPrixUiState = GrandPrixUiState(),
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(GrandPrixUiState())
+    private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<GrandPrixUiState> = _uiState.asStateFlow()
 
     fun fetchData() {
