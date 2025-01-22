@@ -11,8 +11,9 @@ import kotlinx.coroutines.launch
 
 class StandingsViewModel(
     private val getStandingsUseCase: GetStandingsUseCase,
+    initialState: StandingsUiState = StandingsUiState()
 ): ViewModel() {
-    private val _uiState = MutableStateFlow(StandingsUiState())
+    private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<StandingsUiState> = _uiState.asStateFlow()
 
     fun fetchData() {
